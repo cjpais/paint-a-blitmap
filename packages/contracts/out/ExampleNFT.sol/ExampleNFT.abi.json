@@ -25,6 +25,21 @@
     "type": "error"
   },
   {
+    "inputs": [],
+    "name": "InvalidPalette",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidTokenID",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MaxPainted",
+    "type": "error"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -244,6 +259,19 @@
   },
   {
     "inputs": [],
+    "name": "NUM_CUSTOM",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "PRICE",
     "outputs": [
       {
@@ -263,6 +291,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "XQST_GFX_HEADER",
+    "outputs": [
+      {
+        "internalType": "bytes8",
+        "name": "",
+        "type": "bytes8"
       }
     ],
     "stateMutability": "view",
@@ -365,8 +406,13 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "numToBeMinted",
+        "name": "originalTokenID",
         "type": "uint256"
+      },
+      {
+        "internalType": "bytes12",
+        "name": "colors",
+        "type": "bytes12"
       }
     ],
     "name": "mint",
@@ -690,6 +736,19 @@
       }
     ],
     "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_gfx",
+        "type": "address"
+      }
+    ],
+    "name": "updateExquisiteGraphics",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

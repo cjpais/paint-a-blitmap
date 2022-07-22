@@ -93,8 +93,8 @@ abstract contract ERC721Base is ERC721A, Ownable, IERC2981 {
     // *** MINT *** //
     // ************ //
 
-    function _mintMany(address to, uint256 numToBeMinted) internal {
-        _mintMany(to, numToBeMinted, "");
+    function _mint(address to) internal {
+        _mintMany(to, 1, "");
     }
 
     function _mintMany(
@@ -121,18 +121,6 @@ abstract contract ERC721Base is ERC721A, Ownable, IERC2981 {
 
     function _baseURI() internal view override returns (string memory) {
         return baseTokenURI;
-    }
-
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override
-        returns (string memory)
-    {
-        if (address(renderer) != address(0)) {
-            return renderer.tokenURI(tokenId);
-        }
-        return super.tokenURI(tokenId);
     }
 
     // ***************** //
