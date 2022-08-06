@@ -12,14 +12,24 @@ import {
 import { EthereumProviders } from "../EthereumProviders";
 
 export const graphClient = createGraphClient({
-  url: "https://api.thegraph.com/subgraphs/name/holic/example-nft",
+  url: "https://api.thegraph.com/subgraphs/name/domhofmann/blitmap",
 });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Example NFT</title>
+        <title>Paint a Blitmap</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;800&amp;display=swap"
+          rel="stylesheet"
+        ></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&amp;display=swap"
+          rel="stylesheet"
+        ></link>
       </Head>
       <GraphProvider value={graphClient}>
         <EthereumProviders>

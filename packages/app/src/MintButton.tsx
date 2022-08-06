@@ -56,6 +56,8 @@ export const MintButton = () => {
 
   return (
     <Button
+      disabled
+      className=" bg-blitmap-green text-black font-bold text-2xl px-6 py-2"
       pending={mintResult.type === "pending"}
       onClick={(event) => {
         event.preventDefault();
@@ -85,7 +87,7 @@ export const MintButton = () => {
         );
       }}
     >
-      Mint a token
+      Mint
     </Button>
   );
 };
