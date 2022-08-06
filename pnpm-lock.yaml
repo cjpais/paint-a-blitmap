@@ -31,7 +31,7 @@ importers:
       '@ethersproject/address': ^5.5.0
       '@ethersproject/contracts': ^5.5.0
       '@ethersproject/providers': ^5.5.0
-      '@exquisite-graphics/js': ^0.1.6
+      '@exquisite-graphics/js': ^0.1.7
       '@graphql-codegen/cli': ^2.3.1
       '@graphql-codegen/typescript': ^2.4.2
       '@graphql-codegen/typescript-operations': ^2.2.2
@@ -63,7 +63,7 @@ importers:
       '@ethersproject/address': 5.5.0
       '@ethersproject/contracts': 5.5.0
       '@ethersproject/providers': 5.5.2
-      '@exquisite-graphics/js': 0.1.6
+      '@exquisite-graphics/js': 0.1.7
       '@rainbow-me/rainbowkit': 0.4.1_fbrjoi4npipfcpmv6huemyz2lu
       '@web3-scaffold/contracts': link:../contracts
       chroma-js: 2.4.2
@@ -1125,8 +1125,8 @@ packages:
       '@ethersproject/properties': 5.5.0
       '@ethersproject/strings': 5.5.0
 
-  /@exquisite-graphics/js/0.1.6:
-    resolution: {integrity: sha512-9c+frc8eql55ZRSWKX94nwKZeHIWSra5Yuebqgk+G6/XlxmdDztjKwEp4eq+BablXhb4ecDPXZ/AozmyEZVHGA==}
+  /@exquisite-graphics/js/0.1.7:
+    resolution: {integrity: sha512-g6S+g4c187UfpNHyXNABezLLyw+Pp0CGmwxCUEzoqntEWUvd6DCDZimbn4Fw0KrH+ETc0BgoGq8GqtvZ3k7Z3w==}
     dependencies:
       get-pixels: 3.3.3
       pngjs: 6.0.0
@@ -5134,7 +5134,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.34
+      mime-types: 2.1.35
     dev: true
 
   /form-data/4.0.0:
@@ -5143,7 +5143,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.34
+      mime-types: 2.1.35
     dev: true
 
   /formdata-node/4.3.2:
@@ -6876,29 +6876,15 @@ packages:
     resolution: {integrity: sha512-n7DHHMjR1avBbSpsTBj6fmMGh2AGrifVV4e+WYc3Q9lO+xnSZ3NyhcBND3vzzatt05LFhoKFRxrIyklmLlUtyA==}
     dev: false
 
-  /mime-db/1.51.0:
-    resolution: {integrity: sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==}
-    engines: {node: '>= 0.6'}
-    dev: true
-
   /mime-db/1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
-    dev: false
-
-  /mime-types/2.1.34:
-    resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==}
-    engines: {node: '>= 0.6'}
-    dependencies:
-      mime-db: 1.51.0
-    dev: true
 
   /mime-types/2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.52.0
-    dev: false
 
   /mimic-fn/1.2.0:
     resolution: {integrity: sha512-jf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==}
