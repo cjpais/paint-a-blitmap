@@ -9,6 +9,7 @@ import { useBlitmapsQuery } from "../../codegen/subgraph";
 import { Button } from "../Button";
 import ColorPicker from "../components/ColorPicker";
 import { MintButton } from "../MintButton";
+import { usePainterizer } from "../useColor";
 
 // XQSTMAP
 // BlitmapPaint
@@ -28,36 +29,24 @@ gql`
   }
 `;
 
-const BLITMAP_PNG_URL = "https://api.blitmap.com/v1/png/";
+const getRandomColor = () => chroma.random().hex().toString().replace("#", "");
 
-type ColorData = {
-  color1: string;
-  color2: string;
-  color3: string;
-  color4: string;
-};
+const BLITMAP_PNG_URL = "https://api.blitmap.com/v1/png/";
+const XQST_HEADER = "0120200004000000";
 
 const HomePage: NextPage = () => {
-  const [blitmapIndex, setBlitmapIndex] = useState(0);
-
   const [query] = useBlitmapsQuery();
-  const XQST_HEADER = "0120200004000000";
-
-  const [colors, setColors] = useState<ColorData>({
-    color1: "ff0cd3",
-    color2: "000000",
-    color3: "0000ff",
-    color4: "00ff00",
-  });
+  const { colors, selectedBlitmap, setColor, setColors, setSelectedBlitmap } =
+    usePainterizer();
 
   const getPalette = () => {
-    return `${colors.color1}${colors.color2}${colors.color3}${colors.color4}`;
+    return `${colors.join("")}`;
   };
 
-  const selectedBlitmap = query.data?.blitmaps[blitmapIndex];
+  const blitmap = query.data?.blitmaps[selectedBlitmap];
   const selectedBlitmapData =
-    selectedBlitmap?.data &&
-    `${XQST_HEADER}${getPalette()}${selectedBlitmap?.data.slice(
+    blitmap?.data &&
+    `${XQST_HEADER}${getPalette()}${blitmap?.data.slice(
       26 // take off 0x and then all of the colors which is 4 x 3 bytes = 12 * 2 = 24 for hex
     )}`;
 
@@ -70,44 +59,89 @@ const HomePage: NextPage = () => {
         <h1 className="text-6xl font-bowlby-one">Paint a Blitmap</h1>
 
         <div className="flex gap-4">
-          <h3 className="text-xl">Title: {selectedBlitmap?.name}</h3>
-          <h3 className="text-xl">Artist: {selectedBlitmap?.creatorName}</h3>
+          <h3 className="text-xl">Title: {blitmap?.name}</h3>
+          <h3 className="text-xl">Artist: {blitmap?.creatorName}</h3>
           <h3 className="text-xl">Minted: 0/16</h3>
         </div>
 
         <div className="flex md:flex-row flex-col gap-5">
-          <div className="grid grid-cols-5 gap-3 overflow-y-scroll w-128 h-128">
-            {/* TODO: change to opacity-10 if minted out, disable button? */}
-            {Array.from(Array(100).keys()).map((i) => (
-              <div
-                key={i}
-                className={`${
-                  i === Number(blitmapIndex) ? "border-4 border-green-400" : ""
-                }`}
-              >
-                <img
-                  src={`${BLITMAP_PNG_URL}${i}`}
-                  width="100%"
-                  height="100%"
-                  onClick={() => setBlitmapIndex(i)}
-                  className=""
-                  alt={`image ${i} from blitmap`}
-                ></img>
-              </div>
-            ))}
-          </div>
-
-          {selectedBlitmapData && (
-            <div>
-              <img
-                src={`data:image/svg+xml;base64,${Buffer.from(
-                  getSVG(selectedBlitmapData)
-                ).toString("base64")}`}
-                className="h-128 w-128"
-                alt={`the image of the painted blitmap`}
-              ></img>
+          <div className="">
+            <h4 className="text-xl font-bowlby-one">Select a Blitmap</h4>
+            <div className="grid grid-cols-5 gap-3 w-128 h-128 overflow-y-auto ">
+              {/* TODO: change to opacity-10 if minted out, disable button? */}
+              {Array.from(Array(100).keys()).map((i) => (
+                <div
+                  key={i}
+                  className={`${
+                    i === selectedBlitmap ? "border-8 border-green-400" : ""
+                  }`}
+                >
+                  <img
+                    src={`${BLITMAP_PNG_URL}${i}`}
+                    width="100%"
+                    height="100%"
+                    onClick={() => setSelectedBlitmap(i)}
+                    className=""
+                    alt={`image ${i} from blitmap`}
+                  ></img>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
+          <div className="flex flex-col">
+            <h4 className="text-xl font-bowlby-one">Repainterizer</h4>
+            <div className="flex gap-4">
+              {selectedBlitmapData && (
+                <div>
+                  <img
+                    src={`data:image/svg+xml;base64,${Buffer.from(
+                      getSVG(selectedBlitmapData)
+                    ).toString("base64")}`}
+                    className="h-128 w-128"
+                    alt={`the image of the painted blitmap`}
+                  ></img>
+                </div>
+              )}
+              <div className="flex flex-col gap-6">
+                <ColorPicker
+                  color={colors[0]}
+                  onChange={(c) => {
+                    setColor(c, 0);
+                  }}
+                />
+                <ColorPicker
+                  color={colors[1]}
+                  onChange={(c) => setColor(c, 1)}
+                />
+                <ColorPicker
+                  color={colors[2]}
+                  onChange={(c) => setColor(c, 2)}
+                />
+                <ColorPicker
+                  color={colors[3]}
+                  onChange={(c) => setColor(c, 3)}
+                />
+
+                <Button
+                  className="bg-slate-300"
+                  onClick={() => {
+                    setColors([
+                      getRandomColor(),
+                      getRandomColor(),
+                      getRandomColor(),
+                      getRandomColor(),
+                    ]);
+                  }}
+                >
+                  <img
+                    src="dice.svg"
+                    className="w-16 h-16"
+                    alt="an image of dice"
+                  />
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* <div>
@@ -122,25 +156,6 @@ const HomePage: NextPage = () => {
           />
         </div> */}
 
-        <div className="flex gap-6">
-          <ColorPicker
-            color={colors.color1}
-            onChange={(c) => setColors({ ...colors, color1: c.slice(1) })}
-          />
-          <ColorPicker
-            color={colors.color2}
-            onChange={(c) => setColors({ ...colors, color2: c.slice(1) })}
-          />
-          <ColorPicker
-            color={colors.color3}
-            onChange={(c) => setColors({ ...colors, color3: c.slice(1) })}
-          />
-          <ColorPicker
-            color={colors.color4}
-            onChange={(c) => setColors({ ...colors, color4: c.slice(1) })}
-          />
-        </div>
-
         {/* Use isMounted to temporarily workaround hydration issues where
         server-rendered markup doesn't match the client due to localStorage
         caching in wagmi. See https://github.com/holic/web3-scaffold/pull/26 */}
@@ -154,19 +169,6 @@ const HomePage: NextPage = () => {
         </p> */}
 
         <div className="flex gap-4">
-          <Button
-            className="bg-slate-200"
-            onClick={() => {
-              setColors({
-                color1: chroma.random().hex().replace("#", ""),
-                color2: chroma.random().hex().replace("#", ""),
-                color3: chroma.random().hex().replace("#", ""),
-                color4: chroma.random().hex().replace("#", ""),
-              });
-            }}
-          >
-            <img src="dice.svg" className="w-12 h-12" alt="an image of dice" />
-          </Button>
           <MintButton />
         </div>
         {/* <Inventory /> */}

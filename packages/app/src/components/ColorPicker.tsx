@@ -21,7 +21,7 @@ const ColorPicker = ({
   return (
     <div className="picker">
       <div
-        className={`w-16 h-16 border-3 border-slate-100`}
+        className={`w-16 h-16 border-3 border-slate-100 rounded-md drop-shadow-md`}
         style={{ backgroundColor: `#${color}` }}
         onClick={() => toggle(true)}
       />

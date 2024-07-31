@@ -160,12 +160,6 @@ abstract contract ERC721Base is ERC721A, Ownable, IERC2981 {
         baseTokenURI = _baseTokenURI;
     }
 
-    function withdrawAll() external {
-        require(address(this).balance > 0, "Zero balance");
-        (bool sent, ) = owner().call{value: address(this).balance}("");
-        require(sent, "Failed to withdraw");
-    }
-
     function withdrawAllERC20(IERC20 token) external {
         token.transfer(owner(), token.balanceOf(address(this)));
     }

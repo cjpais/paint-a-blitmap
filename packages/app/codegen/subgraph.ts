@@ -46,6 +46,7 @@ export type Blitmap_Filter = {
   readonly affinity_not?: InputMaybe<ReadonlyArray<Scalars['String']>>;
   readonly affinity_not_contains?: InputMaybe<ReadonlyArray<Scalars['String']>>;
   readonly affinity_not_contains_nocase?: InputMaybe<ReadonlyArray<Scalars['String']>>;
+  readonly and?: InputMaybe<ReadonlyArray<InputMaybe<Blitmap_Filter>>>;
   readonly blockCreatedAt?: InputMaybe<Scalars['BigInt']>;
   readonly blockCreatedAt_gt?: InputMaybe<Scalars['BigInt']>;
   readonly blockCreatedAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -76,13 +77,21 @@ export type Blitmap_Filter = {
   readonly creatorName_starts_with?: InputMaybe<Scalars['String']>;
   readonly creatorName_starts_with_nocase?: InputMaybe<Scalars['String']>;
   readonly creator_contains?: InputMaybe<Scalars['Bytes']>;
+  readonly creator_gt?: InputMaybe<Scalars['Bytes']>;
+  readonly creator_gte?: InputMaybe<Scalars['Bytes']>;
   readonly creator_in?: InputMaybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly creator_lt?: InputMaybe<Scalars['Bytes']>;
+  readonly creator_lte?: InputMaybe<Scalars['Bytes']>;
   readonly creator_not?: InputMaybe<Scalars['Bytes']>;
   readonly creator_not_contains?: InputMaybe<Scalars['Bytes']>;
   readonly creator_not_in?: InputMaybe<ReadonlyArray<Scalars['Bytes']>>;
   readonly data?: InputMaybe<Scalars['Bytes']>;
   readonly data_contains?: InputMaybe<Scalars['Bytes']>;
+  readonly data_gt?: InputMaybe<Scalars['Bytes']>;
+  readonly data_gte?: InputMaybe<Scalars['Bytes']>;
   readonly data_in?: InputMaybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly data_lt?: InputMaybe<Scalars['Bytes']>;
+  readonly data_lte?: InputMaybe<Scalars['Bytes']>;
   readonly data_not?: InputMaybe<Scalars['Bytes']>;
   readonly data_not_contains?: InputMaybe<Scalars['Bytes']>;
   readonly data_not_in?: InputMaybe<ReadonlyArray<Scalars['Bytes']>>;
@@ -118,9 +127,14 @@ export type Blitmap_Filter = {
   readonly name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   readonly name_starts_with?: InputMaybe<Scalars['String']>;
   readonly name_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  readonly or?: InputMaybe<ReadonlyArray<InputMaybe<Blitmap_Filter>>>;
   readonly owner?: InputMaybe<Scalars['Bytes']>;
   readonly owner_contains?: InputMaybe<Scalars['Bytes']>;
+  readonly owner_gt?: InputMaybe<Scalars['Bytes']>;
+  readonly owner_gte?: InputMaybe<Scalars['Bytes']>;
   readonly owner_in?: InputMaybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly owner_lt?: InputMaybe<Scalars['Bytes']>;
+  readonly owner_lte?: InputMaybe<Scalars['Bytes']>;
   readonly owner_not?: InputMaybe<Scalars['Bytes']>;
   readonly owner_not_contains?: InputMaybe<Scalars['Bytes']>;
   readonly owner_not_in?: InputMaybe<ReadonlyArray<Scalars['Bytes']>>;
@@ -239,6 +253,7 @@ export type Contract_Filter = {
   readonly allowedVariants_lte?: InputMaybe<Scalars['Int']>;
   readonly allowedVariants_not?: InputMaybe<Scalars['Int']>;
   readonly allowedVariants_not_in?: InputMaybe<ReadonlyArray<Scalars['Int']>>;
+  readonly and?: InputMaybe<ReadonlyArray<InputMaybe<Contract_Filter>>>;
   readonly id?: InputMaybe<Scalars['ID']>;
   readonly id_gt?: InputMaybe<Scalars['ID']>;
   readonly id_gte?: InputMaybe<Scalars['ID']>;
@@ -247,6 +262,7 @@ export type Contract_Filter = {
   readonly id_lte?: InputMaybe<Scalars['ID']>;
   readonly id_not?: InputMaybe<Scalars['ID']>;
   readonly id_not_in?: InputMaybe<ReadonlyArray<Scalars['ID']>>;
+  readonly or?: InputMaybe<ReadonlyArray<InputMaybe<Contract_Filter>>>;
   readonly published?: InputMaybe<Scalars['Boolean']>;
   readonly published_in?: InputMaybe<ReadonlyArray<Scalars['Boolean']>>;
   readonly published_not?: InputMaybe<Scalars['Boolean']>;
@@ -392,6 +408,8 @@ export type _Block_ = {
   readonly hash?: Maybe<Scalars['Bytes']>;
   /** The block number */
   readonly number: Scalars['Int'];
+  /** Integer representation of the timestamp stored in blocks for the chain */
+  readonly timestamp?: Maybe<Scalars['Int']>;
 };
 
 /** The type for the top-level _meta field */

@@ -2,18 +2,20 @@ import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 
 import { Button } from "./Button";
-import { exampleNFTContract } from "./contracts";
+import { paintmapContract } from "./contracts";
 import { extractContractError } from "./extractContractError";
 import { pluralize } from "./pluralize";
 import { promiseNotify } from "./promiseNotify";
 import { switchChain } from "./switchChain";
+import { usePainterizer } from "./useColor";
 import { usePromiseFn } from "./usePromiseFn";
 
 export const MintButton = () => {
   const { connector } = useAccount();
+  const { selectedBlitmap, colors } = usePainterizer();
 
   const [mintResult, mint] = usePromiseFn(
-    async (quantity: number, onProgress: (message: string) => void) => {
+    async (onProgress: (message: string) => void) => {
       if (!connector) {
         throw new Error("Wallet not connected");
       }
@@ -21,14 +23,17 @@ export const MintButton = () => {
       onProgress("Preparing wallet…");
       await switchChain(connector);
       const signer = await connector.getSigner();
-      const contract = exampleNFTContract.connect(signer);
+      const contract = paintmapContract.connect(signer);
       const price = await contract.PRICE();
 
       try {
-        onProgress(`Minting ${pluralize(quantity, "token", "tokens")}…`);
+        // onProgress(`Minting ${pluralize(quantity, "token", "tokens")}…`);
+        console.log("colors", colors);
 
         const tx = await promiseNotify(
-          contract.mint(quantity, { value: price.mul(quantity) })
+          contract.mint(selectedBlitmap, `0x${colors.join("")}`, {
+            value: price,
+          })
         ).after(1000 * 5, () =>
           onProgress("Please confirm transaction in your wallet…")
         );
@@ -56,13 +61,12 @@ export const MintButton = () => {
 
   return (
     <Button
-      disabled
       className=" bg-blitmap-green text-black font-bold text-2xl px-6 py-2"
       pending={mintResult.type === "pending"}
       onClick={(event) => {
         event.preventDefault();
         const toastId = toast.loading("Starting…");
-        mint(1, (message) => {
+        mint((message) => {
           toast.update(toastId, { render: message });
         }).then(
           () => {

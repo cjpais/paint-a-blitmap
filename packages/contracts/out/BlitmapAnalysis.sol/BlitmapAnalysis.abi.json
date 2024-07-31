@@ -1,0 +1,76 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "tokenAffinityOf",
+    "outputs": [
+      {
+        "internalType": "string[3]",
+        "name": "",
+        "type": "string[3]"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "tokenRGBColorsOf",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256[4]",
+            "name": "r",
+            "type": "uint256[4]"
+          },
+          {
+            "internalType": "uint256[4]",
+            "name": "g",
+            "type": "uint256[4]"
+          },
+          {
+            "internalType": "uint256[4]",
+            "name": "b",
+            "type": "uint256[4]"
+          }
+        ],
+        "internalType": "struct BlitmapAnalysis.Colors",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "tokenSlabsOf",
+    "outputs": [
+      {
+        "internalType": "string[4]",
+        "name": "",
+        "type": "string[4]"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]
